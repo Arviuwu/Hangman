@@ -180,6 +180,14 @@ while (repeat)
 
         while (inputValidation)
         {
+            if(guess == "" || guess == null)
+            {
+                Console.WriteLine("    Enter a letter!");
+                Console.Write("    ");
+                guess = Console.ReadLine().ToUpper();
+                continue;
+            }
+
             letterGuess = guess[0]; //assigns the first character of the input to the letter guess variable
 
             if (guessDisplay.Contains(letterGuess +" ")) //Checks blanks if the letter is already correclty guessed
