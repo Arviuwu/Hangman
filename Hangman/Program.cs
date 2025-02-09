@@ -7,7 +7,11 @@ string[] wordList = new string[] // list of possible words
     "Apple", "Tiger", "River", "Mountain", "Puzzle",
     "Chair", "Cloud", "Bottle", "School", "Flower",
     "Window", "Pencil", "Garden", "Rocket", "Banana",
-    "Orange", "House", "Bread", "Table", "Friend"
+    "Orange", "House", "Bread", "Table", "Friend",
+    "Dog", "Sun", "Tree", "Bridge", "Candle",
+    "Laptop", "Forest", "Village", "Thunder", "Rainbow",
+    "Notebook", "Backpack", "Sandwich", "Adventure", "Chocolate",
+    "Morning", "Pebble", "Castle", "Guitar", "Universe"
 };
 string guess = ""; // empty input string
 char letterGuess = '\0'; // empty character guess
