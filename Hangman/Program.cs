@@ -15,6 +15,7 @@ int lives = 6; // lives
 Random random = new Random(); //random init
 int hangManDrawingProgress = 0;
 bool repeat = true;
+bool cheating = false;
 
 while (repeat)
 {
@@ -33,11 +34,16 @@ while (repeat)
     while (lives >= 0)
     {
         Console.Clear();
-    
-        // cheating
-        /*Console.WriteLine(word);*/
-    
+
+        // cheating  
+        if (cheating)
+        {
+            Console.WriteLine(word);
+        }
+        Console.WriteLine();
+
         // print updated guess display
+        Console.Write("   ");
         foreach (string c in guessDisplay)
         {
             Console.Write(c);
@@ -45,94 +51,96 @@ while (repeat)
 
         // print remaining lives
         Console.WriteLine();
-        Console.WriteLine($"Lives remaining: {lives}");
+        Console.WriteLine();
+        Console.WriteLine($"   Lives remaining: {lives}");
+        Console.WriteLine();
 
         // displays the list of guessed letters
-        Console.Write("Guessed Letters: ");
+        Console.Write("   Guessed Letters: ");
         foreach (char i in guessedLetters)
         {
             Console.Write(i+" ");
         }
-
+        Console.WriteLine();
         // drawing hangman depending on wrong guesses
         switch (hangManDrawingProgress)
         {
             case 0:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             case 1:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |       0");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |       0");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             case 2:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |       0");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |       0");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             case 3:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |       0");
-                Console.WriteLine(@"   |      /|");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |       0");
+                Console.WriteLine(@"       |      /|");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             case 4:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |       0");
-                Console.WriteLine(@"   |      /|\");
-                Console.WriteLine(@"   |");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |       0");
+                Console.WriteLine(@"       |      /|\");
+                Console.WriteLine(@"       |");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             case 5:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |       0");
-                Console.WriteLine(@"   |      /|\");
-                Console.WriteLine(@"   |      /");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |       0");
+                Console.WriteLine(@"       |      /|\");
+                Console.WriteLine(@"       |      /");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             case 6:
                 Console.WriteLine();
-                Console.WriteLine(@"    _______");
-                Console.WriteLine(@"   |       |");
-                Console.WriteLine(@"   |       0");
-                Console.WriteLine(@"   |      /|\");
-                Console.WriteLine(@"   |      / \");
-                Console.WriteLine(@" __|__");
-                Console.WriteLine(@"/     \");
-                Console.WriteLine(@"================");
+                Console.WriteLine(@"        _______");
+                Console.WriteLine(@"       |       |");
+                Console.WriteLine(@"       |       0");
+                Console.WriteLine(@"       |      /|\");
+                Console.WriteLine(@"       |      / \");
+                Console.WriteLine(@"     __|__");
+                Console.WriteLine(@"    /     \");
+                Console.WriteLine(@"    ===============");
                 break;
             default:
                 Console.WriteLine("You should never see this");
@@ -151,8 +159,19 @@ while (repeat)
         }
 
         // Letter guess input
-        Console.WriteLine("Guess a letter!");
+        Console.WriteLine("    Guess a letter!");
+        Console.Write("    ");
         guess = Console.ReadLine().ToUpper();
+
+        //cheats off/on
+        if (guess == "CHEATS ON")
+        {
+            cheating = true;
+        }
+        else if (guess == "CHEATS OFF")
+        {
+            cheating = false;
+        }
 
         // single letter input validation
         bool inputValidation = true;
@@ -161,24 +180,31 @@ while (repeat)
         {
             letterGuess = guess[0]; //assigns the first character of the input to the letter guess variable
 
-            if (!guessedLetters.Contains(letterGuess) && guess.Length == 1) // exits validation loop if the guessed letter has not been guessed before
+            if (guessDisplay.Contains(letterGuess +" ")) //Checks blanks if the letter is already correclty guessed
+            {
+                Console.WriteLine("    You already guessed this letter correctly!");
+                Console.Write("    ");
+                guess = Console.ReadLine().ToUpper();
+            }
+            else if (!guessedLetters.Contains(letterGuess) && guess.Length == 1) // exits validation loop if the guessed letter has not been guessed before
             {    
                 inputValidation = false; 
             }
-            else if (guessedLetters.Contains(letterGuess))
+            else if (guessedLetters.Contains(letterGuess))  // checks guessed letters for duplicate guess
             {
-                Console.WriteLine("You have already guessed that letter!");
+                Console.WriteLine("    You have already guessed that letter!");
+                Console.Write("    ");
                 guess = Console.ReadLine().ToUpper();
             }
-            else if(guessDisplay.Contains(letterGuess))
-            else if(guess.Length != 1)  
+            else if(guess.Length != 1)  //checks for multi letter inputs
             {
-                Console.WriteLine("Guess a single letter!");
+                Console.WriteLine("    Guess a single letter!");
+                Console.Write("    ");
                 guess = Console.ReadLine().ToUpper();
             }
-            else
+            else //unexpected error
             {
-                Console.WriteLine("error");
+                Console.WriteLine("    Something went wrong");
             }    
         }
 
@@ -212,21 +238,22 @@ while (repeat)
     // win/lose message
     if (lives > 0)
     {
-        Console.WriteLine("you won");
+        Console.WriteLine("    You won!");
     }
     else if (lives == 0)
     {
-        Console.WriteLine("you lost");
+        Console.WriteLine("    You lost");
     }
     else
     {
-        Console.WriteLine("Error lives");
+        Console.WriteLine("    Lives somehow negative");
     }
 
     // repeat game
     while (true)
     {
-        Console.WriteLine("Do you want to play another round? (Y/N)");
+        Console.WriteLine("    Do you want to play another round? (Y/N)");
+        Console.Write("    ");
         string anotherRound = Console.ReadLine().ToUpper();
         if (anotherRound == "Y")
         {
@@ -245,7 +272,7 @@ while (repeat)
         else
         {
             //wrong input (y/n)
-            Console.WriteLine("Enter \"Y\" play another round, \"N\" to stop playing.");
+            Console.WriteLine("    Enter \"Y\" play another round, \"N\" to stop playing.");
         }
     }    
 }
