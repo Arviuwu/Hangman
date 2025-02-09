@@ -16,13 +16,15 @@ Random random = new Random(); //random init
 int hangManDrawingProgress = 0;
 bool repeat = true;
 bool cheating = false;
+string oldWord = "";
 
 while (repeat)
 {
     int randomWordIndex = random.Next(0,wordList.Length); //random index for list of all possible words
     string word = wordList[randomWordIndex].ToUpper();  //saving randomly selected word in "word" string
-    string[] guessDisplay = new string[word.Length]; // string array with as many positions as the word is long                                                
+    string[] guessDisplay = new string[word.Length]; // string array with as many positions as the word is long      
     char[] wordArray = word.ToCharArray(); // word converted to array with characters
+    oldWord = word; // store word for loss message
 
     // create guess display array with blanks
     for (int i = 0; i < wordArray.Length; i++)
@@ -242,7 +244,7 @@ while (repeat)
     }
     else if (lives == 0)
     {
-        Console.WriteLine("    You lost");
+        Console.WriteLine($"    You lost. The word was {oldWord}.");
     }
     else
     {
