@@ -18,7 +18,7 @@ char letterGuess = '\0'; // empty character guess
 int lives = 7; // lives
 Random random = new Random(); //random init
 int hangManDrawingProgress = 18 - lives;
-bool repeat = true;
+bool repeat = true; // continue playing
 bool cheating = false;
 string oldWord = "";
 
