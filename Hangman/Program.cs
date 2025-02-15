@@ -263,20 +263,11 @@
             Console.WriteLine();
 
             // win/lose message
-            if (lives > 0)
-            {
-                Console.WriteLine("    You won!");
-            }
-            else if (lives == 0)
-            {
-                Console.WriteLine($"    You lost. The word was {oldWord}.");
-            }
-            else
-            {
-                Console.WriteLine("    Lives somehow negative");
-            }
+            gameEndMessage(lives, oldWord);
 
-            // repeat game
+            repeatGameDialogue(lives, hangManDrawingProgress, hangmanStages, guessedLetters, repeat);
+
+            /*// repeat game
             while (true)
             {
                 Console.WriteLine("    Do you want to play another round? (Y/N)");
@@ -301,7 +292,7 @@
                     //wrong input (y/n)
                     Console.WriteLine("    Enter \"Y\" play another round, \"N\" to stop playing.");
                 }
-            }
+            }*/
         }
     }
     static string RandomWord(string[] wordList, Random random)
@@ -309,15 +300,10 @@
         int randomWordIndex = random.Next(0, wordList.Length); //random index for list of all possible words
         return wordList[randomWordIndex].ToUpper();  //saving randomly selected word in "word" string
     }
+
     static void UpdateUI(string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress)
     {
         Console.Clear();
-        // cheating  
-        if (cheating)
-        {
-            Console.WriteLine(word);
-        }
-        Console.WriteLine();
 
         // print updated guess display
         Console.Write("    ");
@@ -343,6 +329,7 @@
         Console.WriteLine(hangmanStages[hangManDrawingProgress]);
         Console.WriteLine();
     }
+
     static char InputValidation(string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress, string guess, char letterGuess)
     {
         string dialogueMessage = "    Take your guess!";
@@ -397,5 +384,50 @@
             }
         }
         return letterGuess;
+    }
+
+    static void gameEndMessage(int lives, string oldWord)
+    {
+        if (lives > 0)
+        {
+            Console.WriteLine("    You won!");
+        }
+        else if (lives == 0)
+        {
+            Console.WriteLine($"    You lost. The word was {oldWord}.");
+        }
+        else
+        {
+            Console.WriteLine("    Lives somehow negative");
+        }
+    }
+
+    static void repeatGameDialogue(int lives, int hangManDrawingProgress, string[] hangmanStages, List<char> guessedLetters, bool repeat)
+    {
+        while (true)
+        {
+            Console.WriteLine("    Do you want to play another round? (Y/N)");
+            Console.Write("    ");
+            string anotherRound = Console.ReadLine().ToUpper();
+            if (anotherRound == "Y")
+            {
+                //reset lives/drawing progress/guessed letter list
+                lives = 7;
+                hangManDrawingProgress = hangmanStages.Length - lives - 1;
+                guessedLetters.Clear();
+                break;
+            }
+            else if (anotherRound == "N")
+            {
+                //exit game loop
+                repeat = false;
+                break;
+            }
+            else
+            {
+                //wrong input (y/n)
+                Console.WriteLine("    Enter \"Y\" play another round, \"N\" to stop playing.");
+            }
+        }
     }
 }
