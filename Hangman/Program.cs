@@ -1,6 +1,4 @@
-﻿using System;
-
-class Program
+﻿class Program
 {
     static void Main()
     {
@@ -16,11 +14,10 @@ class Program
         "Notebook", "Backpack", "Sandwich", "Adventure", "Chocolate",
         "Morning", "Pebble", "Castle", "Guitar", "Universe"
         };
-        string guess = ""; 
+        string guess = "";
         char letterGuess = '\0';
         int lives = 7;
         Random random = new Random(); //random init
-
         string[] hangmanStages = new string[]
         {
 
@@ -202,7 +199,6 @@ class Program
         };
         int hangManDrawingProgress = hangmanStages.Length - lives - 1; // -1 -> zero based array
         bool repeat = true;
-        bool cheating = false;
         string word;
         string oldWord;
         string[] guessDisplay;
@@ -225,7 +221,7 @@ class Program
             // guess loop
             while (lives >= 0)
             {
-                UpdateUI(cheating, word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress);
+                UpdateUI(word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress);
 
                 // win check !!after UI is updated!!
                 if (!guessDisplay.Contains("_ "))
@@ -237,18 +233,8 @@ class Program
                     break;
                 }
 
-                /*//cheats off/on
-                if (guess == "CHEATS ON")
-                {
-                    cheating = true;
-                }
-                else if (guess == "CHEATS OFF")
-                {
-                    cheating = false;
-                }*/
-
                 // input validation (empty/many characters/already guessed)
-                letterGuess = InputValidation(cheating, word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress,guess, letterGuess);
+                letterGuess = InputValidation(word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress, guess, letterGuess);
 
                 // adds wrong guesses to list
                 if (!word.Contains(letterGuess))
@@ -323,7 +309,7 @@ class Program
         int randomWordIndex = random.Next(0, wordList.Length); //random index for list of all possible words
         return wordList[randomWordIndex].ToUpper();  //saving randomly selected word in "word" string
     }
-    static void UpdateUI(bool cheating, string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress)
+    static void UpdateUI(string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress)
     {
         Console.Clear();
         // cheating  
@@ -357,10 +343,10 @@ class Program
         Console.WriteLine(hangmanStages[hangManDrawingProgress]);
         Console.WriteLine();
     }
-    static char InputValidation(bool cheating, string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress, string guess, char letterGuess)
+    static char InputValidation(string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress, string guess, char letterGuess)
     {
-        string dialogueMessage ="    Take your guess!";
-        
+        string dialogueMessage = "    Take your guess!";
+
         while (true)
         {
             Console.WriteLine(dialogueMessage);
@@ -397,7 +383,7 @@ class Program
             }
             else if (guessedLetters.Contains(letterGuess))  // checks guessed letters for duplicate guess
             {
-                
+
                 dialogueMessage = "    You have already guessed that letter!";
                 continue;
             }
@@ -409,7 +395,6 @@ class Program
             {
                 Console.WriteLine("    Something went wrong");
             }
-            
         }
         return letterGuess;
     }
