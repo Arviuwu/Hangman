@@ -16,9 +16,9 @@ class Program
         "Notebook", "Backpack", "Sandwich", "Adventure", "Chocolate",
         "Morning", "Pebble", "Castle", "Guitar", "Universe"
         };
-        string guess = ""; // empty input string
-        char letterGuess = '\0'; // empty character guess
-        int lives = 7; // lives
+        string guess = ""; 
+        char letterGuess = '\0';
+        int lives = 7;
         Random random = new Random(); //random init
 
         string[] hangmanStages = new string[]
@@ -237,12 +237,7 @@ class Program
                     break;
                 }
 
-                // Letter guess input
-                Console.WriteLine("    Guess a letter!");
-                Console.Write("    ");
-                guess = Console.ReadLine().ToUpper();
-
-                //cheats off/on
+                /*//cheats off/on
                 if (guess == "CHEATS ON")
                 {
                     cheating = true;
@@ -250,51 +245,10 @@ class Program
                 else if (guess == "CHEATS OFF")
                 {
                     cheating = false;
-                }
+                }*/
 
                 // input validation (empty/many characters/already guessed)
-                bool inputValidation = true;
-
-                while (inputValidation)
-                {
-                    // empty input protection
-                    if (guess == "" || guess == null)
-                    {
-                        Console.WriteLine("    Enter a letter!");
-                        Console.Write("    ");
-                        guess = Console.ReadLine().ToUpper();
-                        continue;
-                    }
-
-                    letterGuess = guess[0]; //assigns the first character of the input to the letter guess variable
-
-                    if (guessDisplay.Contains(letterGuess + " ")) //Checks blanks if the letter is already correclty guessed
-                    {
-                        Console.WriteLine("    You already guessed this letter correctly!");
-                        Console.Write("    ");
-                        guess = Console.ReadLine().ToUpper();
-                    }
-                    else if (!guessedLetters.Contains(letterGuess) && guess.Length == 1) // exits validation loop if the guessed letter has not been guessed before
-                    {
-                        inputValidation = false;
-                    }
-                    else if (guessedLetters.Contains(letterGuess))  // checks guessed letters for duplicate guess
-                    {
-                        Console.WriteLine("    You have already guessed that letter!");
-                        Console.Write("    ");
-                        guess = Console.ReadLine().ToUpper();
-                    }
-                    else if (guess.Length != 1)  //checks for multi letter inputs
-                    {
-                        Console.WriteLine("    Guess a single letter!");
-                        Console.Write("    ");
-                        guess = Console.ReadLine().ToUpper();
-                    }
-                    else //unexpected error
-                    {
-                        Console.WriteLine("    Something went wrong");
-                    }
-                }
+                letterGuess = InputValidation(cheating, word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress,guess, letterGuess);
 
                 // adds wrong guesses to list
                 if (!word.Contains(letterGuess))
@@ -402,5 +356,61 @@ class Program
         // drawing hangman depending on wrong guesses
         Console.WriteLine(hangmanStages[hangManDrawingProgress]);
         Console.WriteLine();
+    }
+    static char InputValidation(bool cheating, string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress, string guess, char letterGuess)
+    {
+        string dialogueMessage ="    Take your guess!";
+        
+        while (true)
+        {
+            Console.WriteLine(dialogueMessage);
+            // Letter guess input
+            Console.Write("    ");
+            guess = Console.ReadLine().ToUpper();
+
+            // empty input protection
+            if (guess == "" || guess == null)
+            {
+
+                dialogueMessage = "    Enter a letter!";
+                continue;
+            }
+
+            letterGuess = guess[0]; //assigns the first character of the input to the letter guess variable
+
+            if (guess.Length != 1)  //checks for multi letter inputs
+            {
+
+                dialogueMessage = "    Guess a single letter!";
+                continue;
+            }
+            else if (!Char.IsLetter(letterGuess))
+            {
+
+                dialogueMessage = "    You may only guess letters!";
+                continue;
+            }
+            if (guessDisplay.Contains(letterGuess + " ")) //Checks blanks if the letter is already correclty guessed
+            {
+                dialogueMessage = "    You already guessed this letter correctly!";
+                continue;
+            }
+            else if (guessedLetters.Contains(letterGuess))  // checks guessed letters for duplicate guess
+            {
+                
+                dialogueMessage = "    You have already guessed that letter!";
+                continue;
+            }
+            else if (!guessedLetters.Contains(letterGuess) && guess.Length == 1) // exits validation loop if the guessed letter has not been guessed before
+            {
+                break;
+            }
+            else //unexpected error
+            {
+                Console.WriteLine("    Something went wrong");
+            }
+            
+        }
+        return letterGuess;
     }
 }
