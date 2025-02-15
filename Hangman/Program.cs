@@ -17,7 +17,194 @@ string guess = ""; // empty input string
 char letterGuess = '\0'; // empty character guess
 int lives = 7; // lives
 Random random = new Random(); //random init
-int hangManDrawingProgress = 18 - lives;
+
+string[] hangmanStages = new string[] 
+{
+
+@"
+
+
+
+
+
+     __|__
+    /     \
+    ===============",
+@"
+
+
+
+
+       |
+     __|__
+    /     \
+    ===============",
+@"
+
+
+
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+
+
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        --
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        ---
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        ----
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -----
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -----
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        ------
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|\
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|\
+       |      /
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|\
+       |      / \
+     __|__
+    /     \
+    ==============="
+};
+int hangManDrawingProgress = hangmanStages.Length;
+Console.WriteLine(hangmanStages[0]);
+
 bool repeat = true;
 bool cheating = false;
 string oldWord = "";
@@ -40,7 +227,6 @@ while (repeat)
     while (lives >= 0)
     {
         Console.Clear();
-
         // cheating  
         if (cheating)
         {
@@ -69,221 +255,7 @@ while (repeat)
         }
         Console.WriteLine();
         // drawing hangman depending on wrong guesses
-        switch (hangManDrawingProgress)
-        {
-            case 0:
-                Console.WriteLine();
-                Console.WriteLine(@"        ");
-                Console.WriteLine(@" ");
-                Console.WriteLine(@"");
-                Console.WriteLine(@"       ");
-                Console.WriteLine(@"");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 1:
-                Console.WriteLine();
-                Console.WriteLine(@"        ");
-                Console.WriteLine(@" ");
-                Console.WriteLine(@"");
-                Console.WriteLine(@"       ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 2:
-                Console.WriteLine();
-                Console.WriteLine(@"        ");
-                Console.WriteLine(@" ");
-                Console.WriteLine(@"");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 3:
-                Console.WriteLine();
-                Console.WriteLine(@"        ");
-                Console.WriteLine(@" ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 4:
-                Console.WriteLine();
-                Console.WriteLine(@"        ");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 5:
-                Console.WriteLine();
-                Console.WriteLine(@"        _");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 6:
-                Console.WriteLine();
-                Console.WriteLine(@"        __");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 7:
-                Console.WriteLine();
-                Console.WriteLine(@"        ___");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 8:
-                Console.WriteLine();
-                Console.WriteLine(@"        ____");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 9:
-                Console.WriteLine();
-                Console.WriteLine(@"        _____");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 10:
-                Console.WriteLine();
-                Console.WriteLine(@"        ______");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 11:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       | ");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 12:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 13:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |       0");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 14:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |       0");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 15:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |       0");
-                Console.WriteLine(@"       |      /|");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 16:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |       0");
-                Console.WriteLine(@"       |      /|\");
-                Console.WriteLine(@"       |");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 17:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |       0");
-                Console.WriteLine(@"       |      /|\");
-                Console.WriteLine(@"       |      /");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            case 18:
-                Console.WriteLine();
-                Console.WriteLine(@"        _______");
-                Console.WriteLine(@"       |       |");
-                Console.WriteLine(@"       |       0");
-                Console.WriteLine(@"       |      /|\");
-                Console.WriteLine(@"       |      / \");
-                Console.WriteLine(@"     __|__");
-                Console.WriteLine(@"    /     \");
-                Console.WriteLine(@"    ===============");
-                break;
-            default:
-                Console.WriteLine("You should never see this");
-                break;
-        }
+        Console.WriteLine(hangmanStages[hangManDrawingProgress]);
         Console.WriteLine();
 
         // win check !!after UI is updated!!
