@@ -197,9 +197,7 @@ string[] hangmanStages = new string[]
     /     \
     ==============="
 };
-int hangManDrawingProgress = hangmanStages.Length -1;
-Console.WriteLine(hangmanStages[0]);
-
+int hangManDrawingProgress = hangmanStages.Length -lives-1; // -1 -> zero based array
 bool repeat = true;
 bool cheating = false;
 string oldWord = "";
@@ -230,7 +228,7 @@ while (repeat)
         Console.WriteLine();
 
         // print updated guess display
-        Console.Write("   ");
+        Console.Write("    ");
         foreach (string c in guessDisplay)
         {
             Console.Write(c);
@@ -239,11 +237,11 @@ while (repeat)
         // print remaining lives
         Console.WriteLine();
         Console.WriteLine();
-        Console.WriteLine($"   Lives remaining: {lives}");
+        Console.WriteLine($"    Lives remaining: {lives}");
         Console.WriteLine();
 
         // displays the list of guessed letters
-        Console.Write("   Guessed Letters: ");
+        Console.Write("    Guessed Letters: ");
         foreach (char i in guessedLetters)
         {
             Console.Write(i + " ");
@@ -333,7 +331,7 @@ while (repeat)
         if (!wordArray.Contains(letterGuess))
         {
             lives--;
-            hangManDrawingProgress = 18 - lives;
+            hangManDrawingProgress = hangmanStages.Length - lives -1; ;
         }
 
         // fill in correct letters to guess display
