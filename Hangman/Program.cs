@@ -17,14 +17,196 @@ string guess = ""; // empty input string
 char letterGuess = '\0'; // empty character guess
 int lives = 7; // lives
 Random random = new Random(); //random init
-int hangManDrawingProgress = 18 - lives;
+
+string[] hangmanStages = new string[]
+{
+
+@"
+ 
+ 
+ 
+     __|__
+    /     \
+    ===============",
+@"
+ 
+ 
+ 
+       |
+     __|__
+    /     \
+    ===============",
+@"
+ 
+ 
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+ 
+ 
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        --
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        ---
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        ----
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -----
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -----
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        ------
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |       |
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|\
+       |
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|\
+       |      /
+     __|__
+    /     \
+    ===============",
+@"
+        -------
+       |       |
+       |       0
+       |      /|\
+       |      / \
+     __|__
+    /     \
+    ==============="
+};
+int hangManDrawingProgress = hangmanStages.Length -1;
+Console.WriteLine(hangmanStages[0]);
+
 bool repeat = true;
 bool cheating = false;
 string oldWord = "";
 
 while (repeat)
 {
-    int randomWordIndex = random.Next(0,wordList.Length); //random index for list of all possible words
+    int randomWordIndex = random.Next(0, wordList.Length); //random index for list of all possible words
     string word = wordList[randomWordIndex].ToUpper();  //saving randomly selected word in "word" string
     string[] guessDisplay = new string[word.Length]; // string array with as many positions as the word is long      
     char[] wordArray = word.ToCharArray(); // word converted to array with characters
@@ -64,7 +246,7 @@ while (repeat)
         Console.Write("   Guessed Letters: ");
         foreach (char i in guessedLetters)
         {
-            Console.Write(i+" ");
+            Console.Write(i + " ");
         }
         Console.WriteLine();
         // drawing hangman depending on wrong guesses
@@ -102,7 +284,7 @@ while (repeat)
         while (inputValidation)
         {
             // empty input protection
-            if(guess == "" || guess == null)
+            if (guess == "" || guess == null)
             {
                 Console.WriteLine("    Enter a letter!");
                 Console.Write("    ");
@@ -112,15 +294,15 @@ while (repeat)
 
             letterGuess = guess[0]; //assigns the first character of the input to the letter guess variable
 
-            if (guessDisplay.Contains(letterGuess +" ")) //Checks blanks if the letter is already correclty guessed
+            if (guessDisplay.Contains(letterGuess + " ")) //Checks blanks if the letter is already correclty guessed
             {
                 Console.WriteLine("    You already guessed this letter correctly!");
                 Console.Write("    ");
                 guess = Console.ReadLine().ToUpper();
             }
             else if (!guessedLetters.Contains(letterGuess) && guess.Length == 1) // exits validation loop if the guessed letter has not been guessed before
-            {    
-                inputValidation = false; 
+            {
+                inputValidation = false;
             }
             else if (guessedLetters.Contains(letterGuess))  // checks guessed letters for duplicate guess
             {
@@ -128,7 +310,7 @@ while (repeat)
                 Console.Write("    ");
                 guess = Console.ReadLine().ToUpper();
             }
-            else if(guess.Length != 1)  //checks for multi letter inputs
+            else if (guess.Length != 1)  //checks for multi letter inputs
             {
                 Console.WriteLine("    Guess a single letter!");
                 Console.Write("    ");
@@ -137,7 +319,7 @@ while (repeat)
             else //unexpected error
             {
                 Console.WriteLine("    Something went wrong");
-            }    
+            }
         }
 
         // adds wrong guesses to list
@@ -145,13 +327,13 @@ while (repeat)
         {
             guessedLetters.Add(letterGuess);
         }
-        
+
 
         // lives deduction on wrong guess
         if (!wordArray.Contains(letterGuess))
         {
             lives--;
-            hangManDrawingProgress=18-lives;
+            hangManDrawingProgress = 18 - lives;
         }
 
         // fill in correct letters to guess display
@@ -162,7 +344,6 @@ while (repeat)
                 guessDisplay[i] = (wordArray[i] + " ");
             }
         }
-       
     }
 
     Console.WriteLine();
@@ -206,7 +387,5 @@ while (repeat)
             //wrong input (y/n)
             Console.WriteLine("    Enter \"Y\" play another round, \"N\" to stop playing.");
         }
-    }    
+    }
 }
-
-
