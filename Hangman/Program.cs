@@ -265,34 +265,7 @@
             // win/lose message
             gameEndMessage(lives, oldWord);
 
-            repeatGameDialogue(lives, hangManDrawingProgress, hangmanStages, guessedLetters, repeat);
-
-            /*// repeat game
-            while (true)
-            {
-                Console.WriteLine("    Do you want to play another round? (Y/N)");
-                Console.Write("    ");
-                string anotherRound = Console.ReadLine().ToUpper();
-                if (anotherRound == "Y")
-                {
-                    //reset lives/drawing progress/guessed letter list
-                    lives = 7;
-                    hangManDrawingProgress = hangmanStages.Length - lives - 1;
-                    guessedLetters.Clear();
-                    break;
-                }
-                else if (anotherRound == "N")
-                {
-                    //exit game loop
-                    repeat = false;
-                    break;
-                }
-                else
-                {
-                    //wrong input (y/n)
-                    Console.WriteLine("    Enter \"Y\" play another round, \"N\" to stop playing.");
-                }
-            }*/
+            repeatGameDialogue(ref lives, ref hangManDrawingProgress, hangmanStages, ref guessedLetters, ref repeat);
         }
     }
     static string RandomWord(string[] wordList, Random random)
@@ -336,6 +309,7 @@
 
         while (true)
         {
+            UpdateUI(word, guessDisplay,lives, guessedLetters, hangmanStages,  hangManDrawingProgress);
             Console.WriteLine(dialogueMessage);
             // Letter guess input
             Console.Write("    ");
@@ -402,7 +376,7 @@
         }
     }
 
-    static void repeatGameDialogue(int lives, int hangManDrawingProgress, string[] hangmanStages, List<char> guessedLetters, bool repeat)
+    static void repeatGameDialogue(ref int lives, ref int hangManDrawingProgress, string[] hangmanStages, ref List<char> guessedLetters, ref bool repeat)
     {
         while (true)
         {
