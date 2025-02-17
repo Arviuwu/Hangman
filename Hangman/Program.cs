@@ -277,7 +277,7 @@
     static void UpdateUI(string word, string[] guessDisplay, int lives, List<char> guessedLetters, string[] hangmanStages, int hangManDrawingProgress)
     {
         Console.Clear();
-
+        Console.WriteLine();
         // print updated guess display
         Console.Write("    ");
         foreach (string c in guessDisplay)
