@@ -203,6 +203,7 @@
         string oldWord;
         string[] guessDisplay;
         char[] wordArray;
+        bool alive = true;
 
         while (repeat)
         {
@@ -219,21 +220,13 @@
             }
 
             // guess loop
-            while (lives >= 0)
+            while (alive)
             {
                 UpdateUI(word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress);
 
-                // win check !!after UI is updated!!
-                if (!guessDisplay.Contains("_ "))
-                {
-                    break;
-                }
-                if (lives == 0)
-                {
-                    break;
-                }
+                CheckWinLoss(guessDisplay, ref alive, lives);
 
-                // input validation (empty/many characters/already guessed)
+                // input validation (empty/too many characters/already guessed)
                 letterGuess = InputValidation(word, guessDisplay, lives, guessedLetters, hangmanStages, hangManDrawingProgress, guess, letterGuess);
 
                 // adds wrong guesses to list
@@ -263,9 +256,9 @@
             Console.WriteLine();
 
             // win/lose message
-            gameEndMessage(lives, oldWord);
+            GameEndMessage(lives, oldWord);
 
-            repeatGameDialogue(ref lives, ref hangManDrawingProgress, hangmanStages, ref guessedLetters, ref repeat);
+            RepeatGameDialogue(ref lives, ref hangManDrawingProgress, hangmanStages, ref guessedLetters, ref repeat, ref alive);
         }
     }
     static string RandomWord(string[] wordList, Random random)
@@ -360,7 +353,7 @@
         return letterGuess;
     }
 
-    static void gameEndMessage(int lives, string oldWord)
+    static void GameEndMessage(int lives, string oldWord)
     {
         if (lives > 0)
         {
@@ -376,7 +369,7 @@
         }
     }
 
-    static void repeatGameDialogue(ref int lives, ref int hangManDrawingProgress, string[] hangmanStages, ref List<char> guessedLetters, ref bool repeat)
+    static void RepeatGameDialogue(ref int lives, ref int hangManDrawingProgress, string[] hangmanStages, ref List<char> guessedLetters, ref bool repeat, ref bool alive)
     {
         while (true)
         {
@@ -387,6 +380,7 @@
             {
                 //reset lives/drawing progress/guessed letter list
                 lives = 7;
+                alive = true;
                 hangManDrawingProgress = hangmanStages.Length - lives - 1;
                 guessedLetters.Clear();
                 break;
@@ -402,6 +396,17 @@
                 //wrong input (y/n)
                 Console.WriteLine("    Enter \"Y\" play another round, \"N\" to stop playing.");
             }
+        }
+    }
+    static void CheckWinLoss(string[] guessDisplay, ref bool alive, int lives)
+    {
+        if (!guessDisplay.Contains("_ "))
+        {
+            alive = false;
+        }
+        if (lives == 0)
+        {
+            alive = false;
         }
     }
 }
